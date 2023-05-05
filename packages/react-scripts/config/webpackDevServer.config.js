@@ -16,8 +16,8 @@ const redirectServedPath = require('react-dev-utils/redirectServedPathMiddleware
 const paths = require('./paths');
 const getHttpsConfig = require('./getHttpsConfig');
 
-const host = process.env.HOST || '0.0.0.0';
-const sockHost = process.env.WDS_SOCKET_HOST;
+const host = '127.0.0.1';
+const sockHost = host;
 const sockPath = process.env.WDS_SOCKET_PATH; // default: '/ws'
 const sockPort = process.env.WDS_SOCKET_PORT;
 
@@ -49,6 +49,8 @@ module.exports = function (proxy, allowedHost) {
       'Access-Control-Allow-Methods': '*',
       'Access-Control-Allow-Headers': '*',
     },
+    hot: false,
+    liveReload: true,
     // Enable gzip compression of generated files.
     compress: true,
     static: {
