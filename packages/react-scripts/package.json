@@ -1,18 +1,15 @@
 {
-  "name": "react-scripts",
-  "version": "5.0.1",
-  "description": "Configuration and scripts for Create React App.",
+  "name": "react-scripts-cohtml",
+  "version": "1.0.0",
+  "description": "Configuration and scripts for Create React App with COHTML.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
+    "url": "https://github.com/CoherentLabs/create-react-app.git",
     "directory": "packages/react-scripts"
   },
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
-  },
-  "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
   },
   "files": [
     "bin",

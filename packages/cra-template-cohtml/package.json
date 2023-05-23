@@ -1,0 +1,21 @@
+{
+  "name": "cra-template-cohtml",
+  "version": "1.0.0",
+  "keywords": [
+    "react",
+    "create-react-app",
+    "template",
+    "gameface",
+    "cohtml"
+  ],
+  "description": "The base template for Create React App with Gameface.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CoherentLabs/create-react-app.git",
+    "directory": "packages/cra-template-cohtml"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  }
+}

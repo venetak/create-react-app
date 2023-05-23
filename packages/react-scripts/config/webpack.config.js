@@ -112,12 +112,20 @@ module.exports = function (webpackEnv) {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
-  const shouldUseReactRefresh = env.raw.FAST_REFRESH;
+  const shouldUseReactRefresh = false;
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvDevelopment && require.resolve('style-loader'),
+      isEnvDevelopment && {
+        loader: require.resolve('style-loader'),
+        options: {
+          injectType: 'linkTag',
+        },
+      },
+      isEnvDevelopment && {
+        loader: require.resolve('file-loader'),
+      },
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
         // css is located in `static/css`, use '../../' to locate index.html folder
@@ -125,10 +133,6 @@ module.exports = function (webpackEnv) {
         options: paths.publicUrlOrPath.startsWith('.')
           ? { publicPath: '../../' }
           : {},
-      },
-      {
-        loader: require.resolve('css-loader'),
-        options: cssOptions,
       },
       {
         // Options for PostCSS as we reference these options twice
