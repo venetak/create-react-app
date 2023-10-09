@@ -134,6 +134,10 @@ module.exports = function (webpackEnv) {
           ? { publicPath: '../../' }
           : {},
       },
+      isEnvProduction && {
+        loader: require.resolve('css-loader'),
+        options: cssOptions,
+      },
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
