@@ -134,6 +134,10 @@ module.exports = function (webpackEnv) {
           ? { publicPath: '../../' }
           : {},
       },
+      isEnvProduction && {
+        loader: require.resolve('css-loader'),
+        options: cssOptions,
+      },
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
@@ -382,12 +386,7 @@ module.exports = function (webpackEnv) {
             // A missing `test` is equivalent to a match.
             {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-              type: 'asset',
-              parser: {
-                dataUrlCondition: {
-                  maxSize: imageInlineSizeLimit,
-                },
-              },
+              type: 'asset/resource',
             },
             {
               test: /\.svg$/,
