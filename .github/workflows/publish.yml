@@ -28,16 +28,22 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
     - name: Package cohtml react-scripts
+      run: npm pack
       working-directory: ./packages/react-scripts
-      run: npm pack
-    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-    - run: ls
+    
+    - name: Publish cohtml react-scripts
+      run: ls
+      working-directory: ./packages/react-scripts
+
     - name: Package cra-template-cohtml
-      working-directory: ./packages/cra-template-cohtml
       run: npm pack
-    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-    - run: ls
+      working-directory: ./packages/cra-template-cohtml
+    
+    - name: Publish cra-template-cohtml
+      run: ls
+      working-directory: ./packages/cra-template-cohtml
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
