@@ -1,0 +1,44 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Publish
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  package:
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [20.11.0]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@v0.0.0
+    - uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Package cohtml react-scripts
+      working-directory: ./packages/react-scripts
+      run: npm pack
+    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+    - run: ls
+    - name: Package cra-template-cohtml
+      working-directory: ./packages/cra-template-cohtml
+      run: npm pack
+    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+    - run: ls
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
