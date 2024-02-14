@@ -5,11 +5,10 @@ name: Publish
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   package:
-
     runs-on: windows-latest
 
     strategy:
@@ -18,33 +17,28 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Setup Chrome
-      uses: browser-actions/setup-chrome@v0.0.0
-    - uses: actions/checkout@v2
-      with:
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v0.0.0
+      - uses: actions/checkout@v2
+        with:
           fetch-depth: 0
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-    - name: Package cohtml react-scripts
-      run: npm pack
-      working-directory: ./packages/react-scripts
-    
-    - name: Publish cohtml react-scripts
-      run: ls
-      working-directory: ./packages/react-scripts
+      - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+      - name: Package cohtml react-scripts
+        run: npm pack
+        working-directory: ./packages/react-scripts
 
-    - name: Package cra-template-cohtml
-      run: npm pack
-      working-directory: ./packages/cra-template-cohtml
-    
-    - name: Publish cra-template-cohtml
-      run: ls
-      working-directory: ./packages/cra-template-cohtml
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Package cra-template-cohtml
+        run: npm pack
+        working-directory: ./packages/cra-template-cohtml
 
+      - name: Publish cohtml react-scripts and template
+        run: node run publish.js
+
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
