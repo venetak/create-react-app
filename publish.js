@@ -6,7 +6,6 @@ const craTemplateCohtmlPath = path.join(
   __dirname,
   'packages/cra-template-cohtml'
 );
-const chalk = require('chalk');
 
 const reactScriptsPackageJSON = getPackageJSON(reactScriptsPath);
 const craTemplateCohtmlPackageJSON = getPackageJSON(craTemplateCohtmlPath);
@@ -47,16 +46,14 @@ function shouldUpdate(packageJSON) {
   if (!packageJSON) return false;
 
   const name = packageJSON.name;
-  console.log(chalk.blue(`Checking if ${name} should be published...`));
+  console.log(`Checking if ${name} should be published...`);
   // if a package doesn't exist in the registry then it must be published
   if (
     !JSON.parse(execSync(`npm search ${name} --json`, { encoding: 'utf8' }))
       .length
   ) {
     console.log(
-      chalk.blue(
-        `Package ${name} does not exist on the public registry - it should be published!`
-      )
+      `Package ${name} does not exist on the public registry - it should be published!`
     );
     return true;
   }
@@ -66,9 +63,7 @@ function shouldUpdate(packageJSON) {
 
   if (localVersion !== publicVersion) {
     console.log(
-      chalk.blue(
-        `Package ${name} has new local version - ${localVersion}. The current npm version is ${publicVersion}.`
-      )
+      `Package ${name} has new local version - ${localVersion}. The current npm version is ${publicVersion}.`
     );
     return true;
   }
@@ -84,11 +79,11 @@ function shouldUpdate(packageJSON) {
  */
 function publish(name) {
   try {
-    console.log(chalk.blue(`Should execute Publish here _________${name}`));
+    console.log(`Should execute Publish here _________${name}`);
     // execSync(`npm publish`, { cwd: directory, encoding: 'utf8', stdio: 'inherit' });
-    console.log(chalk.green(`Successfully published ${name}.`));
+    console.log(`Successfully published ${name}.`);
   } catch (error) {
-    console.error(chalk.red(err));
+    console.error(err);
   }
 }
 
