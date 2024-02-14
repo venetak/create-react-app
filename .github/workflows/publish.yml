@@ -37,7 +37,7 @@ jobs:
         working-directory: ./packages/cra-template-cohtml
 
       - name: Publish cohtml react-scripts and template
-        run: node run publish.js
+        run: node publish.js
 
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
